@@ -14,6 +14,10 @@ app.get('/', function (req, res) {
   res.send('API is up...');
 });
 
+app.get('/env', function (req, res) {
+  res.send('Environment variables max BT');
+});
+
 app.listen(3000, () => {
   console.log('Listening on port 3000');
 });
