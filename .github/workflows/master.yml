@@ -1,0 +1,23 @@
+name: Build and Deploy
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and Deploy NodeJS app
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{secrets.SSH_USERNAME}}
+          key: ${{secrets.SSH_KEY}}
+
+          script: |
+            eval "$(ssh-agent -s)"
+            ssh-add ~/.ssh/github
+            cd vagrant_test
+            git pull git@github.com:Adithya2907/vagrant_test.git master
+            npm install
+            pm2 restart app
