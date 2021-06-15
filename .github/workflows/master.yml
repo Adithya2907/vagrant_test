@@ -16,8 +16,11 @@ jobs:
 
           script: |
             eval "$(ssh-agent -s)"
+            cd .ssh
             ssh-add ~/.ssh/github
-            cd vagrant_test
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+            cat github.pub >> authorized_keys
+            cd ~/vagrant_test
             git pull git@github.com:Adithya2907/vagrant_test.git master
             npm install
             pm2 restart app
