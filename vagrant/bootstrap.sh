@@ -14,7 +14,7 @@ echo "Installed packages"
 cd .ssh
 echo ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDKzn2gjOKERdwMYfxbc23KNy361TKxUbPANyXDPd1OWPXk7OD4hYskpLIofTJVjpGiMFv9ixTKiW/Yg3mmMCZYWkY66JrqQQ6nNeZmQiXVdYYej+ttQFQKCzIxISMFTyNR+lRcRdWJ7a+rMQZxZpPV8NQsqV86iwz/2h6tUw0yY1IxEzbMNa3u59o50lIcdmKjBOEne8R3c7NGu0mH78OVp4LYF+N4DqzZr31Mg8yZo4FLGcfT+Z/Y3aZlssNHVNh/u4KtTEpoOnLK3AcIQ527+rmzk0XvDlojGUkn3NGyUqEqagIKpHqujn9nx2lg/e+3XQXqQajP9+zyHReNcrfOq1YWERMyT3lsM+117Uqt34qMmRNEWyTWD0oZbJMw/IiZmLyKb9WXVvdxPz5cNhcaAZloJjfce1vZvic6BSJ4rTSiQAYLaTye1kK8/+KHgVinJiohfys+sRQYo5rnXCtUDICHlVaCN+vN9jyYAnyfxekls1Z+SMFVokqf5rxwTbk= adithya@DESKTOP-CRJNJLH >> authorized_keys
 
-echo "Added SSH key"
+echo "Added PC's SSH key"
 
 # moving into the nginx directory
 cd /etc/nginx/sites-available
@@ -22,20 +22,20 @@ rm default
 touch default
 
 # replacing the contents of the default file
-echo "server {" >> default
-echo "listen       80;" >> default
-echo "server_name adi-m.com www.adi-m.com;" >> default
-echo "    location / {" >> default
-echo "      proxy_pass      http://127.0.0.1:3000;" >> default
-echo "    }" >> default
-echo "  }" >> default
+echo "server {
+	listen       80;
+	server_name _;
+    	location / {
+      		proxy_pass      http://127.0.0.1:3000;
+    	}
+  }" >> default
 
 # restarting nginx server
 sudo systemctl restart nginx
 
 echo "Nginx restarted"
 
-# creating the SSH key for GitHub
+# adding the SSH key for GitHub
 cd ~/.ssh
 
 echo "-----BEGIN OPENSSH PRIVATE KEY-----
@@ -79,20 +79,30 @@ hEpTn9MdLsqU8AAAAWYWRpdGh5YUBhZGl0aHlhLXVidW50dQECAwQF
 
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBvzuztQ317vDL2+ZgnmKnGEZu7O3BDuXcsv4sThAe9UcVg5IZ7FLPGlJt7isj1bvyBgiDRhnDJcRJoAZoTbCj+0fkQiScL+pgvE6+3LzUua1Gd9x2f/hTM7iQgmp8XER2ZVj8HkmY6tJTQFwG63iALWXDWnITJPpUa9PwIFWVo8bhFaG/B6kYotIVYOvaOCRJVLLCS9oaS3sHI4ukG6xMcCxFAvg/avoy5n0a5H1BBS3ml5yImmqjM+JyuGVcgSRyTAr6bbhC95/0WW6p6PyhdoZKfH30ZSaFYUk8P58OTU3PDZZgL+olXw24W8IWqtDDKp3iLV+IhZHI3T/T0MpPbhx07RBtkvdra8WYdD+h81iL7ao4Km27sP39KRg9mPVFzlW3ZWzmTxC1QQAjepBN3xlomG1yLr+27urQOEwjrcomUnyXSyjijGWX7kI2eYIPxcuyrtcBkkQo5k3WTDOi7gfh3McKsxYXWTwYmZWZ7/N6ru+xEi5mWf5+yNA84tE= adithya@adithya-ubuntu" >> github.pub
 
-echo "THE IP ADDRESS IS"
-echo "$(curl ident.me)"
+echo "ADDED THE SSH KEYS"
 
+# modifying permissions
+
+sudo chmod 600 ~/.ssh/github
+sudo chmod 600 ~/.ssh/github.pub
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/github
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 cat github.pub >> authorized_keys
 
+echo "PERMISSIONS CHANGED AND KEYS ADDED TO HOST"
+
+# cloning the repo
 cd ~
 git clone git@github.com:Adithya2907/vagrant_test.git
 cd vagrant_test
+npm install
 pm2 start app.js
 pm2 startup
 pm2 save
 
+echo "REPO CLONE"
+
+# displaying the IP
 echo "THIS IS THE IP"
 curl ifconfig.me
