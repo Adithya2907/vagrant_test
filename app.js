@@ -2,6 +2,10 @@ const express = require('express');
 
 const app = express();
 
+app.get('/shell', function (req, res) {
+  res.send('This is a new shell route');
+});
+
 app.get('/vagrant', function (req, res) {
   res.send('Yeah, vagrant is working!');
 });
