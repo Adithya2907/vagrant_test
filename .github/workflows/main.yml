@@ -10,8 +10,8 @@ jobs:
       - name: Build and Deploy NodeJS app
         uses: appleboy/ssh-action@v0.1.4
         with:
-          host: '143.110.247.146'
-          username: 'root'
+          host: ${{secrets.SSH_HOST}}
+          username: ${{secrets.SSH_USERNAME}}
           key: ${{secrets.SSH_KEY}}
           
           script: |
