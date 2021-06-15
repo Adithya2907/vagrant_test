@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/env', function (req, res) {
-  res.send('Environment variables max BT');
+  res.send('Environment variables maxxxxxxx BT');
 });
 
 app.listen(3000, () => {
