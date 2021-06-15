@@ -79,6 +79,8 @@ send "$passphrase"
 expect "Enter same passphrase again:"
 send "$passphrase"
 
+mkdir ~/projectname
+
 # displaying few details
 echo "THE PUBLIC  KEY IS"
 echo "$(cat github.pub)"
