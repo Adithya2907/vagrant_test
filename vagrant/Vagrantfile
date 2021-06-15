@@ -1,0 +1,22 @@
+Vagrant.configure('2') do |config|
+
+  config.vm.define "vagrant-test-droplet4" do |config|
+      config.vm.provision "shell", path: "bootstrap.sh"
+      config.vm.provider :digital_ocean do |provider, override|
+        override.ssh.private_key_path = '~/.ssh/vagrant_digitalocean'
+        provider.tags = ['vagrant', 'newtag']
+        provider.ssh_key_name = 'Ubuntu-Vagrant-Test-Droplet'
+        override.vm.box = 'digital_ocean'
+        override.vm.box_url = "https://github.com/devopsgroup-io/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+        override.nfs.functional = false
+        provider.token = '8f0eae811e92ae7e64768f37127d826f99aa330905b9f409716c446dc2e65639'
+        provider.image = 'ubuntu-18-04-x64'
+        provider.region = 'BLR1'
+        provider.size = 's-1vcpu-1gb'
+        provider.backups_enabled = false
+        provider.private_networking = false
+        provider.ipv6 = false
+        provider.monitoring = false
+      end
+  end
+end
