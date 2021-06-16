@@ -1,4 +1,16 @@
-source '../.env'
+cd .ssh
+echo "$DESKTOP_SSH" >> authorized_keys
+
+echo "Added PC's SSH key"
+
+# adding the SSH key for GitHub
+cd ~/.ssh
+
+echo "$GITHUB_PRIVATE_KEY" >> github
+
+echo "$GITHUB_PUBLIC_KEY" >> github.pub
+
+echo "ADDED THE SSH KEYS"
 
 # update packages
 sudo apt update
@@ -11,12 +23,6 @@ sudo apt install nginx -y
 npm install -g pm2
 
 echo "Installed packages"
-
-# adding my desktop's SSH key
-cd .ssh
-echo "$DESKTOP_SSH" >> authorized_keys
-
-echo "Added PC's SSH key"
 
 # moving into the nginx directory
 cd /etc/nginx/sites-available
@@ -36,15 +42,6 @@ echo "server {
 sudo systemctl restart nginx
 
 echo "Nginx restarted"
-
-# adding the SSH key for GitHub
-cd ~/.ssh
-
-echo "$GITHUB_PRIVATE_KEY" >> github
-
-echo "$GITHUB_PUBLIC_KEY" >> github.pub
-
-echo "ADDED THE SSH KEYS"
 
 # modifying permissions
 
