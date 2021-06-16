@@ -1,4 +1,7 @@
-cd .ssh
+# . './.env'
+
+# adding my desktop's SSH key
+cd ~/.ssh
 echo "$DESKTOP_SSH" >> authorized_keys
 
 echo "Added PC's SSH key"
@@ -11,6 +14,8 @@ echo "$GITHUB_PRIVATE_KEY" >> github
 echo "$GITHUB_PUBLIC_KEY" >> github.pub
 
 echo "ADDED THE SSH KEYS"
+
+cd ~
 
 # update packages
 sudo apt update
@@ -45,6 +50,7 @@ echo "Nginx restarted"
 
 # modifying permissions
 
+cd ~/.ssh
 sudo chmod 600 ~/.ssh/github
 sudo chmod 600 ~/.ssh/github.pub
 eval "$(ssh-agent -s)"
