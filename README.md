@@ -29,6 +29,7 @@ sh destroy.sh
 
 ## Commands
 
+Note: All these commands must be run from the terminal from inside the proper directory.
 Creates a droplet
 ```shell
 sh startup.sh
