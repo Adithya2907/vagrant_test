@@ -1,5 +1,3 @@
-# . './.env'
-
 # adding my desktop's SSH key
 cd ~/.ssh
 echo "$DESKTOP_SSH" >> authorized_keys
